@@ -4,7 +4,7 @@ const unreliabilities = {
         res.status(503)
         res.send()
     },
-    "five_521": (req, res, next) => {
+    "five_21": (req, res, next) => {
         res.status(521)
         res.send()
     },

@@ -1,0 +1,85 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Ticket API
+  description: |
+    Unreliable Ticket Generator for Fun-Fair autoscooter Action. Generates and Validates Tickets. Get your ticket, start your Car.
+servers:
+  - url: http://localhost:3000/
+paths:
+  /:
+    get:
+      operationId: welcome
+      summary: The Welcome Page
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: Hello
+                properties:
+                  msg:
+                    type: string
+  /tickets/generate:
+    post:
+      operationId: generate
+      summary: Generates a Ticket
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                autoscooter:
+                  type: string
+              required:
+                - autoscooter
+      responses:
+        "200":
+          description: Ticket Generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ticket:
+                    type: string
+                required:
+                  - ticket
+        "400":
+          description: Some Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                required:
+                  - msg
+  /tickets/validate:
+    post:
+      operationId: validate
+      summary: Validate Ticket
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                ticket:
+                  type: string
+              required:
+                - ticket
+      responses:
+        "200":
+          description: Ticket is valid
+          content:
+            application/json:
+              schema:
+                properties:
+                  valid:
+                    type: boolean
+                  autoscooter:
+                    type: string
+                required:
+                  - valid

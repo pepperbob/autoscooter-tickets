@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var cors = require('cors')
 var logger = require('morgan');
 var unreliable = require('./unreliable')
 
@@ -9,10 +10,13 @@ var ticketsRouter = require('./routes/tickets');
 
 var app = express();
 
+
 app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(unreliable.sometimes(0.2))
+
+app.use("/tickets", unreliable.sometimes(0.2))
 
 app.use('/', helloRouter);
 app.use('/tickets', ticketsRouter);
